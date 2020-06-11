@@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
+- Fixed training end with max-step after loaded from checkpoint ([#2146](https://github.com/PyTorchLightning/pytorch-lightning/pull/2146))
+
 
 ## [0.8.0] - 2020-06-DD
 
