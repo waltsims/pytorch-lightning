@@ -21,7 +21,7 @@
 -->
 </div>
 
----   
+---
 ## Trending contributors
 
 [![](https://sourcerer.io/fame/williamFalcon/pytorchlightning/pytorch-lightning/images/0)](https://sourcerer.io/fame/williamFalcon/pytorchlightning/pytorch-lightning/links/0)
