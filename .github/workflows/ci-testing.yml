@@ -84,7 +84,7 @@ jobs:
     - name: Install dependencies
       run: |
         # python -m pip install --upgrade --user pip
-        pip install -r requirements/base.txt -U -f https://download.pytorch.org/whl/torch_stable.html --quiet
+        pip install -r requirements/base.txt -U -f https://download.pytorch.org/whl/cpu/torch_stable.html --quiet
         HOROVOD_BUILD_ARCH_FLAGS="-mfma" pip install -r ./requirements/devel.txt --quiet
         python --version
         pip --version
