@@ -54,7 +54,7 @@ coverage xml
 You can build it on your own, note it takes lots of time, be prepared.
 ```bash
 git clone <git-repository>
-docker image build -t pytorch_lightning:devel-pt1.4 -f tests/Dockerfile --build-arg TORCH_VERSION=1.4 .
+docker image build -t pytorch_lightning:devel-pt1.4 -f dockers/devel-cuda/Dockerfile --build-arg TORCH_VERSION=1.4 .
 ```
 To build other versions, select different Dockerfile.
 ```bash
