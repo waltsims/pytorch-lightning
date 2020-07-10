@@ -7,6 +7,7 @@ from pytorch_lightning import Trainer
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
 from tests.base import EvalModelTemplate
 import tests.base.develop_pipelines as tpipes
+import tests.base.develop_utils as dutils
 from tests.base.datasets import TrialMNIST
 from torch.utils.data import DataLoader
 
@@ -23,6 +24,7 @@ else:
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_base_tpu_model_1(tmpdir):
     """Make sure model trains on TPU."""
     trainer_options = dict(
@@ -39,6 +41,7 @@ def test_base_tpu_model_1(tmpdir):
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_base_tpu_model_idx_1(tmpdir):
     """Make sure model trains on TPU."""
     trainer_options = dict(
@@ -55,6 +58,7 @@ def test_base_tpu_model_idx_1(tmpdir):
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_base_tpu_model_8(tmpdir):
     """Make sure model trains on TPU."""
     trainer_options = dict(
@@ -79,6 +83,7 @@ def test_base_tpu_model_8(tmpdir):
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_base_tpu_16bit_model_core_1(tmpdir):
     """Make sure model trains on TPU."""
     trainer_options = dict(
@@ -97,6 +102,7 @@ def test_base_tpu_16bit_model_core_1(tmpdir):
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_base_tpu_16bit_model_idx_core(tmpdir):
     """Make sure model trains on TPU."""
     trainer_options = dict(
@@ -115,6 +121,7 @@ def test_base_tpu_16bit_model_idx_core(tmpdir):
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_base_tpu_16bit_model_8_cores(tmpdir):
     """Make sure model trains on TPU."""
     trainer_options = dict(
@@ -141,6 +148,7 @@ def test_base_tpu_16bit_model_8_cores(tmpdir):
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_early_stop_checkpoints_on_tpu(tmpdir):
     """Test if single TPU core training works"""
     model = EvalModelTemplate()
@@ -158,6 +166,7 @@ def test_early_stop_checkpoints_on_tpu(tmpdir):
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_early_stop_checkpoints_on_tpu(tmpdir):
     """Test if single TPU core training works"""
     model = EvalModelTemplate()
@@ -175,6 +184,7 @@ def test_early_stop_checkpoints_on_tpu(tmpdir):
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_single_tpu_core_model(tmpdir):
     """Test if single TPU core training works"""
     model = EvalModelTemplate()
@@ -191,6 +201,7 @@ def test_single_tpu_core_model(tmpdir):
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_multi_core_tpu_model(tmpdir):
     """Test if distributed TPU core training works"""
     model = EvalModelTemplate()
@@ -206,6 +217,7 @@ def test_multi_core_tpu_model(tmpdir):
 
 
 @pytest.mark.skipif(not TPU_AVAILABLE, reason="test requires TPU machine")
+@dutils.pl_multi_process_test
 def test_dataloaders_passed_to_fit(tmpdir):
     """Test if dataloaders passed to trainer works on TPU"""
 
