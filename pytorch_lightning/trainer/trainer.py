@@ -943,6 +943,7 @@ class Trainer(
         if self.can_prepare_data():
             model.prepare_data()
             self._is_data_prepared = True
+            self.barrier('prepare_data')
 
         # Run auto batch size scaling
         if self.auto_scale_batch_size:
@@ -1410,12 +1411,11 @@ class Trainer(
                 raise MisconfigurationException('You have defined `test_step()` but did not'
                                                 ' implement `test_dataloader` nor passed in `.test(test_dataloader)`.')
 
-    def barrier(self, name):
-        if self.use_ddp or self.use_ddp2:
-            pass
-            # torch_distrib.barrier()
+    def barrier(self, name, tpu=True, gpu=True):
+        if gpu and (self.use_ddp or self.use_ddp2):
+            torch_distrib.barrier()
 
-        if self.on_tpu and XLA_AVAILABLE:
+        if tpu and (self.on_tpu and XLA_AVAILABLE):
             # wait for all processes to catch up
             torch_xla.core.xla_model.rendezvous(f'pl.Trainer.{name}')
 
