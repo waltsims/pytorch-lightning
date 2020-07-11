@@ -187,6 +187,11 @@ class TrainerDPMixin(ABC):
         return results
 
     def tpu_train(self, tpu_core_idx, model):
+
+        if self.can_prepare_data():
+            model.prepare_data()
+            self._is_data_prepared = True
+
         # call setup after the ddp process has connected
         self.setup('fit')
         if self.is_function_implemented('setup', model):
