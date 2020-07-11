@@ -100,7 +100,7 @@ def pl_multi_process_test(func):
             try:
                 func(**kwargs)
                 queue.put(1)
-            except Exception as e:
+            except Exception:
                 import traceback
                 traceback.print_exc()
                 queue.put(-1)
@@ -110,5 +110,8 @@ def pl_multi_process_test(func):
         p.join()
         result = queue.get()
         assert result == 1
+        # cleaning
+        p.close()
+        queue.close()
 
     return wrapper
