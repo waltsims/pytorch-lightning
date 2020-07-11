@@ -192,7 +192,7 @@ class TrainerDPMixin(ABC):
             model.prepare_data()
             self._is_data_prepared = True
 
-        self.barrier()
+        self.barrier('prepare_data')
 
         # call setup after the ddp process has connected
         self.setup('fit')
