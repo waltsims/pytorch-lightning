@@ -66,18 +66,14 @@ def test_base_tpu_model_8(tmpdir):
         progress_bar_refresh_rate=0,
         max_epochs=1,
         tpu_cores=8,
-        limit_train_batches=10,
-        limit_val_batches=10,
+        limit_train_batches=20,
+        limit_val_batches=20,
     )
 
     model = EvalModelTemplate()
 
-    # 8 cores needs a big dataset
-    def long_train_loader():
-        dataset = DataLoader(TrialMNIST(download=True, num_samples=15000, digits=(0, 1, 2, 5, 8)), batch_size=32)
-        return dataset
-    model.train_dataloader = long_train_loader
-    model.val_dataloader = long_train_loader
+    model.train_dataloader = model.train_dataloader__long
+    model.val_dataloader = model.val_dataloader__long
 
     tpipes.run_model_test(trainer_options, model, on_gpu=False, with_hpc=False)
 
@@ -194,7 +190,7 @@ def test_single_tpu_core_model(tmpdir):
         max_epochs=1,
         limit_train_batches=10,
         limit_val_batches=10,
-        tpu_cores=8,
+        tpu_cores=[8],
     )
     trainer.fit(model)
     assert torch_xla._XLAC._xla_get_default_device() == 'xla:8'
@@ -212,7 +208,9 @@ def test_multi_core_tpu_model(tmpdir):
         limit_val_batches=10,
         tpu_cores=[1, 8],
     )
-    trainer.fit(model)
+
+    with pytest.raises(MisconfigurationException, match=r'^`tpu_cores` can only be 1, 8 or [<1-8>]'):
+        trainer.fit(model)
     assert trainer.tpu_id is None
 
 
