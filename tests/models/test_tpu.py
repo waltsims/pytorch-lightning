@@ -133,11 +133,8 @@ def test_base_tpu_16bit_model_8_cores(tmpdir):
     model = EvalModelTemplate()
 
     # 8 cores needs a big dataset
-    def long_train_loader():
-        dataset = DataLoader(TrialMNIST(download=True, num_samples=15000, digits=(0, 1, 2, 5, 8)), batch_size=32)
-        return dataset
-    model.train_dataloader = long_train_loader
-    model.val_dataloader = long_train_loader
+    model.train_dataloader = model.train_dataloader__long
+    model.val_dataloader = model.val_dataloader__long
 
     tpipes.run_model_test(trainer_options, model, on_gpu=False)
     assert os.environ.get('XLA_USE_BF16') == str(1), "XLA_USE_BF16 was not set in environment variables"
