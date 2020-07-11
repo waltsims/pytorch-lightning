@@ -940,6 +940,7 @@ class Trainer(
 
         # on multi-gpu jobs we only want to manipulate (download, etc) on node_rank=0, local_rank=0
         # or in the case where each node needs to do its own manipulation in which case just local_rank=0
+        # in TPU we call prepare_data from within spawn
         if self.can_prepare_data() and not self.use_tpu:
             model.prepare_data()
             self._is_data_prepared = True
