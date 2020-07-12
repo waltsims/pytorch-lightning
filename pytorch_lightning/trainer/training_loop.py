@@ -467,6 +467,7 @@ class TrainerTrainLoopMixin(ABC):
             # -----------------------------------------
             should_check_val = self.should_check_val(batch_idx, is_last_batch)
             if self.fast_dev_run or should_check_val:
+                print("running evaluation")
                 self.run_evaluation(test_mode=False)
 
             # -----------------------------------------

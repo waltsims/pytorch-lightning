@@ -260,6 +260,8 @@ class TrainerEvaluationLoopMixin(ABC):
         for dataloader_idx, dataloader in enumerate(dataloaders):
             dl_outputs = []
 
+            print('in eval loop for dataloader', dataloader_idx)
+
             # on TPU we have to wrap it under the ParallelLoader
             if self.use_tpu:
                 device = xm.xla_device(self.tpu_id)
@@ -270,6 +272,9 @@ class TrainerEvaluationLoopMixin(ABC):
             dl_max_batches = max_batches[dataloader_idx]
 
             for batch_idx, batch in enumerate(dataloader):
+
+                print('eval' batch_idx)
+
                 if batch is None:
                     continue
 
@@ -386,6 +391,8 @@ class TrainerEvaluationLoopMixin(ABC):
         should_skip = sum(max_batches) == 0
         if should_skip:
             return
+
+        print('dataloaders resetted')
 
         # run evaluation
         eval_results = self._evaluate(self.model, dataloaders, max_batches, test_mode)
