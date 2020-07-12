@@ -273,7 +273,7 @@ class TrainerEvaluationLoopMixin(ABC):
 
             for batch_idx, batch in enumerate(dataloader):
 
-                print('eval' batch_idx)
+                print('eval', batch_idx)
 
                 if batch is None:
                     continue
