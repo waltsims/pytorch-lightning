@@ -473,14 +473,17 @@ class TrainerTrainLoopMixin(ABC):
             # -----------------------------------------
             # SAVE LOGGERS (ie: Tensorboard, etc...)
             # -----------------------------------------
+            print("logger")
             self.save_loggers_in_training_loop(batch_idx)
 
             # -----------------------------------------
             # SAVE METRICS TO LOGGERS
             # -----------------------------------------
+            print("logger metric")
             self.save_train_loop_metrics_to_loggers(batch_idx, batch_output)
 
             # progress global step according to grads progress
+            print("accumulate grad step")
             self.increment_accumulated_grad_global_step()
 
             # max steps reached, end training
@@ -494,15 +497,19 @@ class TrainerTrainLoopMixin(ABC):
                 break
 
         # let ddp devices catch up when using horovod
+        print("sync horovod")
         self.sync_horovod()
 
         # process epoch outputs
+        print("epoch end")
         self.run_training_epoch_end(epoch_output)
 
         # checkpoint callback
+        print("checkpoint callback")
         self.check_checkpoint_callback(should_check_val)
 
         # epoch end hook
+        print("repoch end hook")
         self.run_on_epoch_end_hook(model)
 
     def check_checkpoint_callback(self, should_check_val):
