@@ -473,17 +473,17 @@ class TrainerTrainLoopMixin(ABC):
             # -----------------------------------------
             # SAVE LOGGERS (ie: Tensorboard, etc...)
             # -----------------------------------------
-            print("logger")
+            #print("logger")
             self.save_loggers_in_training_loop(batch_idx)
 
             # -----------------------------------------
             # SAVE METRICS TO LOGGERS
             # -----------------------------------------
-            print("logger metric")
+            #print("logger metric")
             self.save_train_loop_metrics_to_loggers(batch_idx, batch_output)
 
             # progress global step according to grads progress
-            print("accumulate grad step")
+            #print("accumulate grad step")
             self.increment_accumulated_grad_global_step()
 
             # max steps reached, end training
@@ -509,7 +509,7 @@ class TrainerTrainLoopMixin(ABC):
         self.check_checkpoint_callback(should_check_val)
 
         # epoch end hook
-        print("repoch end hook")
+        print("running evaluation")
         self.run_on_epoch_end_hook(model)
 
     def check_checkpoint_callback(self, should_check_val):
