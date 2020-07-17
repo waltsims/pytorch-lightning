@@ -1026,7 +1026,6 @@ class Trainer(
                     self.tpu_train,
                     args=(model,),
                     nprocs=self.tpu_cores,
-                    daemon=True,
                     start_method=start_method,
                 )
 
