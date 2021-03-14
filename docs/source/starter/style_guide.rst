@@ -166,7 +166,7 @@ However, when using DataParallel, you will need to call forward manually
 
     def training_step(...):
         x, y = ...
-        z = self(x)  # < ---------- instead of self.encoder(x)
+        z = self.forward(x)  # < ---------- instead of self.encoder(x)
         pred = self.decoder(z)
         ...
 
